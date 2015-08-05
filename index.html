@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>lily hilite</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="editor">%{
+lilypond highlighter alpha
+built with ace http://ace.c9.io/
+%}
+
+\version "2.18.2"
+
+% recognizes keywords, pitch patterns, beams, articulations
+SopOneMusic = \relative c'' {
+  c8 | c8([ bes)] a a([ g)] f | f'4. b, | c4.~ c4-+
+} % this piece is contrived and probably won't render
+
+% but this one will:
+<<
+  \new RhythmicStaff {
+    \new Voice = "myRhythm" {
+      \time 4/4
+      c4 e8 f g2
+      r4 g g f
+      g1
+    }
+  }
+  \new Lyrics {
+    \lyricsto "myRhythm" {
+      This is my song
+      I like to sing
+    }
+  }
+>>
+
+% drummode notation
+up = \drummode {
+  crashcymbal4 hihat8 halfopenhihat hh hh hh openhihat
+}
+down = \drummode {
+  bassdrum4 snare8 bd r bd sn4
+}
+\new DrumStaff <<
+  \new DrumVoice { \voiceOne \up }
+  \new DrumVoice { \voiceTwo \down }
+>>
+
+% and embedded scheme
+#(define mydrums '(
+         (bassdrum        default   #f           -1)  ; scheme
+         (snare           default   #f           0)   ; scheme
+         (hihat           cross     #f           1)   ; scheme
+         (halfopenhihat   cross     "halfopen"   1)   ; scheme
+         (pedalhihat      xcircle   "stopped"    2)   ; scheme
+         (lowtom          diamond   #f           3))) % lily
+up = \drummode { hh8 hh hhho hhho hhp4 hhp }
+down = \drummode { bd4 sn bd toml8 toml }</div>
+
+<script src="ace/src/ace.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="main.js"></script>
+</body>
+</html>

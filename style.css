@@ -1,0 +1,13 @@
+body {
+  background: #202020;
+}
+#editor {
+  position: absolute;
+  margin: 0 auto;
+  width: 70%;
+  font-size: 0.8em;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
